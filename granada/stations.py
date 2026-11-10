@@ -7,7 +7,8 @@ def obtener_estaciones():
     client = Client("IGN")
     starttime = UTCDateTime("2026-08-14T23:00:00")
     endtime = UTCDateTime("2026-08-15T23:00:00")        
-    inventory = client.get_stations(starttime=starttime, endtime=endtime, latitude=37.1076, longitude=-3.6456, maxradius=0.001, level="station")
+    #Inventory → Network → Station → Channel
+    inventory = client.get_stations(starttime=starttime, endtime=endtime, latitude=37.1076, longitude=-3.6456, maxradius=2, level="station")
     return inventory
 
 try:
@@ -18,3 +19,7 @@ except FDSNNoDataException:
     print("El servicio respondió, pero no hay estaciones con esos filtros")
 else:
     print(inventario)
+
+print("Caracteristicas de las estaciones")
+for inventarios in inventario[0]:
+    print(inventarios)
