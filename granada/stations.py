@@ -1,6 +1,7 @@
 from obspy import UTCDateTime
 from obspy.clients.fdsn import Client
 from obspy.clients.fdsn.header import FDSNNoDataException, FDSNNoServiceException
+from obspy.geodetics import inside_geobounds
 
 
 def obtener_estaciones():
@@ -21,5 +22,5 @@ else:
     print(inventario)
 
 print("Caracteristicas de las estaciones")
-for inventarios in inventario[0]:
-    print(inventarios)
+for estaciones in inventario[0]:
+    print(estaciones)
