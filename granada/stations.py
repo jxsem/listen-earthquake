@@ -34,7 +34,11 @@ def distancia_al_epicentro_km(latitud, longitud):
     grados = locations2degrees(latitud, longitud, LATITUD_EPICENTRO, LONGITUD_EPICENTRO)
     return degrees2kilometers(grados)
 
-
+distancia_km_por_codigo = {}   # tabla: código de estación -> distancia en km
 for estacion in inventario[0]:
-    distancia = distancia_al_epicentro_km(estacion.latitude, estacion.longitude)
-    print(f"{estacion.code}: {distancia:.1f} km")
+    distancia_km = distancia_al_epicentro_km(estacion.latitude, estacion.longitude)
+    distancia_km_por_codigo[estacion.code] = distancia_km
+    print(f"{estacion.code}: {distancia_km:.1f} km")
+
+codigo_mas_cercana = min(distancia_km_por_codigo, key=distancia_km_por_codigo.get)
+print(codigo_mas_cercana)
