@@ -13,7 +13,7 @@ def obtener_estaciones():
     endtime = UTCDateTime("2026-08-15T23:00:00")     
     #Inventory → Network → Station → Channel
     inventory = client.get_stations(starttime=starttime, endtime=endtime, latitude=LATITUD_EPICENTRO, 
-                                    longitude=LONGITUD_EPICENTRO, maxradius=2, level="station")
+                                    longitude=LONGITUD_EPICENTRO, maxradius=2, level="stations")
     return inventory
 
 try:
