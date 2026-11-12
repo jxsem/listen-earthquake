@@ -4,6 +4,11 @@ from sound import convertir_enteros, escribir_wav, normalizar
 traza = obtener_sismograma()
 copia = traza[0].copy()
 copia.integrate()
+'''
+integrate(): Suma el área acumulada bajo la curva de la señal sísmica a lo largo del tiempo.
+
+Como la traza realmente mide Aceleración, al integrar una vez se obtiene Velocidad (m/s)
+'''
 
 #se normaliza
 datos_normalizados = normalizar(copia.data)
