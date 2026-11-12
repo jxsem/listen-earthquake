@@ -41,3 +41,6 @@ print(f"Tipo de numero: {tipo_de_numero_wav}")
 
 ## Obtener representación auditiva WAV
 escribir_wav("sonido/terremoto-4000rate.wav", 4000, senal_wav)
+
+## LA ESTACIÓN ESCOGIDA (ARMILLA) MIDE SOLO ACELERACIÓN
+## SU REPRESENTACION AUDITIVA SERÁ PARECIDA A UN GOLPE SECO
