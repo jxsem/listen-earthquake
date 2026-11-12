@@ -15,7 +15,7 @@ def obtener_estaciones():
     endtime = UTCDateTime("2026-08-15T23:00:00")
     # Inventory → Network → Station → Channel
     inventory = client.get_stations(starttime=starttime, endtime=endtime, latitude=LATITUD_EPICENTRO,
-                                    longitude=LONGITUD_EPICENTRO, maxradius=2, level="station")
+                                    longitude=LONGITUD_EPICENTRO, maxradius=2, level="station", channel="HN?")
     return inventory
 
 
@@ -43,7 +43,14 @@ def main():
         print(f"{estacion.code}: {distancia_km:.1f} km")
 
     codigo_mas_cercana = min(distancia_km_por_codigo, key=distancia_km_por_codigo.get)
-    print(codigo_mas_cercana)
+    codigo_mas_lejana = max(distancia_km_por_codigo, key=distancia_km_por_codigo.get)
+    print(f"Código de más cercana: {codigo_mas_cercana}")
+    print(f"Código de más lejana: {codigo_mas_lejana}")
+    
+    mas_lejana = sorted(distancia_km_por_codigo, key=distancia_km_por_codigo.get, reverse=True)[:5]
+    
+    for codigo in mas_lejana:
+        print(f"Mas lejana del epicentro: {codigo} a {distancia_km_por_codigo[codigo]:.1f} km")
 
 
 if __name__ == "__main__":
