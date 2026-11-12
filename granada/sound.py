@@ -1,6 +1,8 @@
 import numpy as np
 from scipy.io.wavfile import write
 
+MAXIMO_INT16 = 32767
+
 
 def normalizar(datos):
     """Escala la señal para que su valor más grande en magnitud sea 1.
@@ -19,7 +21,7 @@ def convertir_enteros(datos):
     pico = np.abs(datos).max()
     if pico > 1:
         raise ValueError(f"Los datos no están normalizados: el valor máximo en magnitud es {pico}")
-    senal_wav = datos * 32767
+    senal_wav = datos * MAXIMO_INT16
     return senal_wav.astype(np.int16)
 
 def escribir_wav(ruta, rate, datos):
