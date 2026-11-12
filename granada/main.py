@@ -1,23 +1,29 @@
+import argparse
 import sys
 from pathlib import Path
 
 from obspy.clients.fdsn.header import FDSNException
 
 from granada.analysis import calcular_duracion, contar_saturacion
+from granada.figure import guardar_figura
 from granada.read import crear_cliente, obtener_sismograma
 from granada.sound import convertir_enteros, escribir_wav, normalizar
 
 RATE_WAV = 4000
 CARPETA_SONIDO = Path(__file__).parent / "sonido"
+CARPETA_FIGURA = Path(__file__).parent / "sismograma"
 
 
-def main():
+def main(estacion):
     try:
         client = crear_cliente()
-        traza = obtener_sismograma(client)
+        traza = obtener_sismograma(client, estacion)
     except FDSNException as error:
         print(f"Error al hablar con el IGN: {error}")
         sys.exit(1)
+
+    CARPETA_FIGURA.mkdir(exist_ok=True)
+    guardar_figura(traza, CARPETA_FIGURA / f"sismograma-{estacion}.png")
 
     # array de numpy
     datos = traza[0].data
@@ -56,11 +62,14 @@ def main():
 
     ## Obtener representación auditiva WAV
     CARPETA_SONIDO.mkdir(exist_ok=True)
-    escribir_wav(CARPETA_SONIDO / f"terremoto-{RATE_WAV}rate.wav", RATE_WAV, senal_wav)
+    escribir_wav(CARPETA_SONIDO / f"terremoto-{estacion}-{RATE_WAV}rate.wav", RATE_WAV, senal_wav)
 
     ## LA ESTACIÓN ESCOGIDA (ARMILLA) MIDE SOLO ACELERACIÓN
     ## SU REPRESENTACION AUDITIVA SERÁ PARECIDA A UN GOLPE SECO
 
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser(description="Sonifica el terremoto de Granada para una estación del IGN.")
+    parser.add_argument("estacion", nargs="?", default="EXARM", help="código de la estación (por defecto EXARM)")
+    argumentos = parser.parse_args()
+    main(argumentos.estacion)

@@ -6,6 +6,8 @@ from granada.main import CARPETA_SONIDO, RATE_WAV
 from granada.read import crear_cliente, obtener_sismograma
 from granada.sound import convertir_enteros, escribir_wav, normalizar
 
+ESTACION = "EXARM"
+
 # integrate(): suma el área acumulada bajo la curva de la señal a lo largo del tiempo.
 # La traza mide aceleración (en cuentas, sin aplicar la respuesta instrumental),
 # así que al integrar una vez se obtiene "velocidad" en cuentas·s, NO en m/s.
@@ -18,7 +20,7 @@ from granada.sound import convertir_enteros, escribir_wav, normalizar
 def main():
     try:
         client = crear_cliente()
-        traza = obtener_sismograma(client)
+        traza = obtener_sismograma(client, ESTACION)
     except FDSNException as error:
         print(f"Error al hablar con el IGN: {error}")
         sys.exit(1)
