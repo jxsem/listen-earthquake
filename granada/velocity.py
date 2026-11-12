@@ -1,5 +1,5 @@
 from read import obtener_sismograma
-from sound import normalizar, convertir_enteros, escribir_wav
+from sound import convertir_enteros, escribir_wav, normalizar
 
 traza = obtener_sismograma()
 copia = traza[0].copy()
