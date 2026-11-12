@@ -22,7 +22,7 @@ Proyecto de aprendizaje en Python (ObsPy, NumPy, SciPy).
 
 Las dos son acelerómetros (`HNZ`, componente vertical), a 200 Hz y con 20001 muestras en la misma ventana (23:04:20 – 23:06:00 UTC).
 
-| Estación | Zona | Distancia | Sonido | Figura |
+| Estación | Zona | Distancia | Sonido (se genera al ejecutar) | Figura |
 |---|---|---|---|---|
 | EXARM | Armilla | 4,0 km | `granada/sonido/terremoto-EXARM-4000rate.wav` | `granada/sismograma/sismograma-EXARM.png` |
 | EXMAZ | Murcia | 213,8 km | `granada/sonido/terremoto-EXMAZ-4000rate.wav` | `granada/sismograma/sismograma-EXMAZ.png` |
@@ -53,6 +53,8 @@ pip install -r requirements.txt
 python -m granada.main            # estación cercana (EXARM, por defecto)
 python -m granada.main EXMAZ      # estación lejana
 ```
+
+Los WAV no se versionan: se crean en `granada/sonido/` al ejecutar. Los PNG sí están en el repositorio.
 
 Se ejecuta desde la raíz del repositorio y con `-m`, porque el código usa imports de paquete (`from granada.read import ...`). El argumento es el código de la estación; los ficheros de salida llevan ese código en el nombre. El canal (`HNZ`) es la constante `CANAL` de `granada/read.py`.
 
